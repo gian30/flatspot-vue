@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
+
+/* apply a natural box layout model to all elements, but allowing components to change */
+html {
+	box-sizing: border-box;
+	font-family: 'DM Sans', sans-serif;
+}
+
+*,
+*:before,
+*:after {
+	box-sizing: inherit;
+	font-family: 'DM Sans', sans-serif;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	font-family: 'DM Sans', sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	box-sizing: border-box;
+}
+
+a {
+	text-decoration: none;
+
+	&:hover {
+		text-decoration: none;
+	}
+}
+
+p {
+	margin: 0;
+	padding: 0;
+}
+input.form-control {
+	font-size: 14px;
+	height: 45px;
+	width: 100%;
+	background-color: #F4F4F4;
+	color: #B6B6B6;
+	border: none;
+	border-radius: 5px;
+	padding: 10px 20px;
+	display: block;
+	position: relative;
+
+	&:focus {
+		background-color: #F4F4F4;
+	}
+}
+
+
+.input-group .input-group-append {
+	left: -5px;
+
+	button {
+		height: 45px;
+		width: 45px;
+		background: #2D64C3;
+		border: none;
+		color: #fff;
+		z-index: 5;
+
+		&:hover {
+			background: rgb(20, 50, 101);
+			color: #fff;
+		}
+
+		img {
+			object-fit: contain;
+			width: 16px;
+			height: 16px;
+		}
+	}
+}
+
+span.el-dropdown-link {
+	font-size: 23px;
+	font-weight: 700;
+	color: #373737;
+}
+
+.btn {
+	font-size: 14px;
+	font-weight: 600;
+	border: none;
+	border-radius: 5px;
+	padding: 10px 10px;
+	display: inline-block;
+
+}
+
+.btn.btn-primary {
+	color: #fff;
+	background: #2D64C3;
+
+	&:hover {
+		background: rgb(20, 50, 101);
+		color: #fff;
+	}
+}
+
+.btn.btn-transparent {
+	color: #373737;
+	background: transparent;
+	border: none;
+
+	&:hover {
+		background: transparent;
+		color: #2D64C3;
+	}
+}

@@ -1,18 +1,19 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+	<HeroComponent></HeroComponent>
+	<FlatsGridComponent></FlatsGridComponent>
+	<FlatsMapComponent></FlatsMapComponent>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
+import HeroComponent from '@/components/HeroComponent.vue'
+import FlatsGridComponent from '@/components/FlatsGridComponent.vue'
+import FlatsMapComponent from '@/components/FlatsMapComponent.vue'
 export default {
-  name: 'HomeView',
-  components: {
-    HelloWorld
-  }
+	name: 'HomeView',
+	components: {
+		HeroComponent,
+		FlatsGridComponent,
+		FlatsMapComponent
+	}
 }
 </script>
