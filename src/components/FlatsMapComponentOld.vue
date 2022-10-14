@@ -8,7 +8,6 @@
 			<ol-vector-layer>
 				<ol-source-vector>
 					<ol-feature v-for="(flat, index) in mapFlats" :key="index">
-
 						<ol-geom-point :coordinates="[flat.lng, flat.lat]">
 						</ol-geom-point>
 						<ol-style>
@@ -16,9 +15,7 @@
 						</ol-style>
 					</ol-feature>
 					<ol-feature v-for="(flat, index) in mapFlats" :key="index">
-
 						<ol-interaction-select @select="showFlat($event, flat)">
-
 							<ol-geom-point :coordinates="[flat.lng, flat.lat]">
 							</ol-geom-point>
 							<ol-style>
@@ -26,9 +23,7 @@
 							</ol-style>
 						</ol-interaction-select>
 					</ol-feature>
-
 					<ol-overlay :position="[selectedFlat.lng, selectedFlat.lat]" v-if="selectedFlat">
-		
 						<template v-slot="slotProps">
 							<div class="overlay-content">
 								<FlatCardComponent :cords="{slotProps}" :flat="selectedFlat" :hideShadow="true">
@@ -37,10 +32,7 @@
 						</template>
 					</ol-overlay>
 				</ol-source-vector>
-
 			</ol-vector-layer>
-
-
 		</ol-map>
 	</div>
 	<div class="container">

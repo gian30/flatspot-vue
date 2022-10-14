@@ -9,6 +9,7 @@ export default defineStore('flat', {
 		start: 0,
 		limit: 20,
 		loading: false,
+		moreLoading: false,
 		mapLoading: false,
 		orders: [
 			{ label: 'Price', query: 'price', ascending: true },
@@ -29,7 +30,7 @@ export default defineStore('flat', {
 	}),
 	actions: {
 		async fetchFlats() {
-			this.activateLoading()
+			this.activateLoading();
 			const { data: flats } = await supabase
 				.from('flat')
 				.select('*')
@@ -45,10 +46,10 @@ export default defineStore('flat', {
 			} else {
 				this.flats = [ ...this.flats, ...flats ];
 			}
-			this.deactivateLoading()
+			this.deactivateLoading();
 		},
 		async fetchMapFlats() {
-			this.activateMapLoading()
+			this.activateMapLoading();
 			const { data: flats } = await supabase
 				.from('flat')
 				.select('*')
@@ -56,26 +57,32 @@ export default defineStore('flat', {
 				.neq('price', 0)
 				.ilike('province', `%${this.provinces[this.provinceIndex]}%`)
 				.ilike('propertyType', `%${this.propertyTypes[this.propertyTypeIndex].query}%`)
-				.ilike('type', `%${this.types[this.typeIndex].query}%`)
+				.ilike('type', `%${this.types[this.typeIndex].query}%`);
 			this.mapFlats = flats;
-			this.deactivateMapLoading()
+			this.deactivateMapLoading();
 		},
 		async searchFlats(search) {
-			this.activateLoading()
-			this.activateMapLoading()
-			const { data: flats } = await supabase.rpc('search_flats', {
-				keyword: search
-			}).neq('price', 0)
+			this.activateLoading();
+			this.activateMapLoading();
+			this.flats = [];
+			const { data: flats } = await supabase
+				.rpc('search_flats', {
+					keyword: search
+				})
+				.neq('price', 0)
+				.range(this.start, this.start + this.limit)
+				.order(this.orders[this.orderIndex].query, { ascending: this.orders[this.orderIndex].ascending });
+
 			this.flats = flats;
 			this.mapFlats = flats;
-			this.start = 0;
-			this.deactivateLoading()
-			this.deactivateMapLoading()
+			this.deactivateLoading();
+			this.deactivateMapLoading();
 		},
 		nextStart() {
 			this.start = this.start + this.limit;
 		},
 		resetStart() {
+			this.flats = [];
 			this.start = 0;
 		},
 		setLimit(limit) {
@@ -104,6 +111,12 @@ export default defineStore('flat', {
 		},
 		deactivateMapLoading() {
 			this.mapLoading = false;
+		},
+		activateMoreLoading() {
+			this.moreLoading = true;
+		},
+		deactivateMoreLoading() {
+			this.moreLoading = false;
 		}
 	}
 });

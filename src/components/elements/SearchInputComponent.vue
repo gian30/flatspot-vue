@@ -5,7 +5,7 @@
 			@input="$emit('update:modelValue', $event.target.value)" v-bind="$attrs" aria-label="Search flat"
 			aria-describedby="basic-addon2" placeholder='Try "Barcelona"'>
 		<div class="input-group-append">
-			<button class="btn" type="button"><img src="@/assets/search.svg" alt="Search" class="search-icon"></button>
+			<button class="btn" type="button" @click="$emit('search', modelValue)"><img src="@/assets/search.svg" alt="Search" class="search-icon"></button>
 		</div>
 	</div>
 </template>

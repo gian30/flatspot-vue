@@ -18,7 +18,7 @@
 					<div class="search d-flex">
 						<div class="search__section search__section_category">
 							<p class="search__title">
-								What are you looking for?
+								What?
 							</p>
 							<el-dropdown size="large">
 								<span class="el-dropdown-link">
@@ -57,7 +57,7 @@
 						</div>
 						<div class="search__section search__section_category2">
 							<p class="search__title">
-								What?
+								How?
 							</p>
 							<el-dropdown size="large">
 								<span class="el-dropdown-link">
@@ -138,7 +138,7 @@ export default {
 }
 
 .main-title {
-	font-size: 45px;
+	font-size: 65px;
 	max-width: 810px;
 	font-weight: 600;
 	color: #fff;
@@ -156,13 +156,13 @@ export default {
 	-moz-box-shadow: 0px 28px 71px -5px rgba(0, 0, 0, 0.1);
 	box-shadow: 0px 28px 71px -5px rgba(0, 0, 0, 0.1);
 	margin: auto;
-	margin-top: 170px;
+    margin-top: 135px;
 	border-radius: 10px;
 }
 
 .search__section {
 	background-color: #fff;
-	padding: 35px 40px 20px;
+	padding: 30px 40px 30px;
 	width: 100%;
 }
 
@@ -225,7 +225,7 @@ export default {
 .search__button {
 	margin-top: 17px;
 	max-width: 100%;
-	font-size: 18px;
+	font-size: 20px;
 	width: 100%;
 	background-color: #fff;
 	color: #1d56bc;
@@ -255,8 +255,49 @@ export default {
 		border-radius: 10px;
 	}
 
+	.search__section.search__section_category::after,
+	.search__section.search__section_category2::after,
+	.search__section.search__section_location::after {
+		display: none;
+	}
+
 	.search__section.search__section_button {
 		border-radius: 10px;
 	}
+
+	.search__section {
+
+		.el-dropdown {
+			margin-left: 10px;
+		}
+	}
+}
+
+@media screen and (max-width: 767px) {
+
+	.search__section.search__section_category::after,
+	.search__section.search__section_category2::after,
+	.search__section.search__section_location::after {
+		display: none;
+	}
+
+	.search {
+		padding: 15px 0;
+	}
+
+	.search__section {
+		padding: 10px 15px 20px 15px;
+
+		.el-dropdown {
+			margin-left: 10px;
+		}
+	}
+
+	.main-title {
+		font-size: 45px;
+	}
+
+	
+
 }
 </style>

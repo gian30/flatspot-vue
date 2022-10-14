@@ -8,20 +8,20 @@
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="collapse navbar-collapse" id="headerNavbar">
-				<ul class="navbar-nav m-auto">
+				<ul class="navbar-nav">
 					<li class="nav-item">
-						<router-link to="/#find" class="header__nav-item">Find flat</router-link>
+						<router-link to="/#find" class="header__nav-item">Property finder</router-link>
 					</li>
 					<li class="nav-item">
-						<router-link to="/#flats" class="header__nav-item">Flats</router-link>
+						<router-link to="/#flats" class="header__nav-item">Flats and houses</router-link>
 					</li>
 					<li class="nav-item">
-						<router-link to="/#flats-map" class="header__nav-item">Flats map</router-link>
+						<router-link to="/#flats-map" class="header__nav-item">Map</router-link>
 					</li>
 				</ul>
 			</div>
 			<div class="search-bar">
-				<SearchInputComponent width="400px" v-model="search" placeholder="Search" />
+				<SearchInputComponent width="370px" v-model="search" placeholder="Search" @search="searchOnClick()" />
 			</div>
 		</div>
 	</nav>
@@ -39,8 +39,13 @@ export default {
 		}
 	},
 	methods: {
-		...mapActions(Flat, ["searchFlats"]),
-		...mapActions(Flat, ["activateLoading"]),
+		...mapActions(Flat, ["searchFlats", "activateLoading", "resetStart"]),
+		searchOnClick() {
+			this.activateLoading();
+			this.resetStart();
+			clearTimeout(this.timeoutQuery);
+			this.searchFlats(this.search);
+		}
 	},
 	components: {
 		SearchInputComponent
@@ -48,6 +53,8 @@ export default {
 	watch: {
 		search: function (val) {
 			this.activateLoading()
+			this.resetStart();
+			console.log(val)
 			if (this.timeoutQuery) { clearTimeout(this.timeoutQuery) }
 			this.timeoutQuery = setTimeout(() => {
 				this.searchFlats(val)
@@ -63,23 +70,34 @@ export default {
 	top: 0;
 	left: 0;
 	right: 0;
-	z-index: 1000;
+	z-index: 999900;
 	background-color: #fff;
 	transition: all 0.3s ease-in-out;
 }
 
+.collapse.navbar-collapse {
+	min-width: 340px;
+}
+
+.navbar-toggler {
+	border: none;
+	font-size: 15px;
+}
+
 .navbar-offset {
-	height: 70px;
+	height: 60px;
 }
 
 .navbar-brand {
 	img {
-		width: 200px;
+		width: 160px;
 		object-fit: contain;
 	}
 }
 
 .navbar-nav {
+	margin-left: 70px;
+
 	.header__nav-item {
 		font-weight: 600;
 		font-size: 16px;
@@ -88,6 +106,7 @@ export default {
 		border-radius: 5px;
 		padding: 3px 10px;
 		margin-right: 30px;
+
 		&:hover {
 			background-color: #1d56bc;
 			color: #fff;
@@ -110,6 +129,7 @@ export default {
 	.navbar-toggler {
 		order: 2;
 	}
+
 }
 
 @media (max-width: 768px) {
@@ -138,6 +158,10 @@ export default {
 		border-radius: 5px;
 		padding: 3px 10px;
 		margin-right: 30px;
+	}
+
+	.navbar-nav {
+		margin-left: 0;
 	}
 }
 </style>

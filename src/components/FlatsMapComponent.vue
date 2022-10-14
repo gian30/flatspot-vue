@@ -3,8 +3,7 @@
 		<div id="map" style="height: 600px;"></div>
 	</div>
 	<div class="d-none">
-		<FlatCardComponent @loaded="this.showFlatsOnMap()" v-if="mapFlats && mapFlats.length > 0" id="flat-card"
-			ref="flat-card" :flat="currentFlat">
+		<FlatCardComponent @loaded="showFlatsOnMap()" v-if="mapFlats && mapFlats.length > 0" id="flat-card" ref="flat-card" :flat="currentFlat">
 		</FlatCardComponent>
 	</div>
 </template>
@@ -29,18 +28,20 @@ export default {
 		this.fetchMapFlats();
 	},
 	computed: {
-		...mapState(Flat, ["mapFlats"]),
-
+		...mapState(Flat, ["mapFlats"])
 	},
 	methods: {
 		...mapActions(Flat, ["fetchMapFlats"]),
 		showFlatsOnMap() {
-			this.map = L.map('map').setView([51.505, -0.09], 13);
+			if (!this.map) {
+				this.map = L.map('map').setView([this.mapFlats[0].lat, this.mapFlats[0].lng], 13);
+			} else {
+				this.map.setView([this.mapFlats[0].lat, this.mapFlats[0].lng], 13);
+			}
 			L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 				attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 
 			}).addTo(this.map);
-			console.log(icon);
 			var greenIcon = L.icon({
 				iconUrl: icon,
 				iconSize: [25, 70],
@@ -48,15 +49,12 @@ export default {
 				popupAnchor: [0, -30],
 			});
 			const element = document.getElementById('flat-card');
-
-
 			this.mapFlats.forEach((flat) => {
 				this.map.setView([flat.lat, flat.lng], 10);
 				const marker = L.marker([flat.lat, flat.lng], { icon: greenIcon });
 				marker.addEventListener('click', () => {
 					this.currentFlat = flat;
-					marker.bindPopup(element, { minWidth: 384, maxWidth: 384 })
-						.openPopup();
+					marker.bindPopup(element, { minWidth: 384, maxWidth: 384 }).openPopup();
 				});
 				marker.addTo(this.map);
 			});

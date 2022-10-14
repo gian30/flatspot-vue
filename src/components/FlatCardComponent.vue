@@ -49,7 +49,7 @@ export default {
 <style >
 .flat-card {
 	position: relative;
-	width: 390px;
+	width: 100%;
 }
 
 .flat {
@@ -60,8 +60,6 @@ export default {
 	-webkit-box-shadow: 0px 0px 5px -1px rgba(0, 0, 0, 0.26);
 	-moz-box-shadow: 0px 0px 5px -1px rgba(0, 0, 0, 0.26);
 	box-shadow: 0px 0px 5px -1px rgba(0, 0, 0, 0.26);
-
-	margin-top: 40px;
 	cursor: pointer;
 	transition: all 0.5s ease;
 	border-radius: 10px;
@@ -89,6 +87,11 @@ export default {
 	font-weight: 600;
 	z-index: 1;
 	margin-top: 10px;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	width: 100%;
+	height: 2em;
+	white-space: nowrap;
 }
 
 .flat-details,

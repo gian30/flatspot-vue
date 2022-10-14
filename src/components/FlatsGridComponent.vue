@@ -12,8 +12,7 @@
 						</span>
 						<template #dropdown>
 							<el-dropdown-menu>
-								<el-dropdown-item v-for="(filterTypeValue, index) in filterTypes" :key="index"
-									@click="selectedFilterIndex=index">{{filterTypeValue}}
+								<el-dropdown-item v-for="(filterTypeValue, index) in filterTypes" :key="index" @click="selectedFilterIndex=index">{{filterTypeValue}}
 								</el-dropdown-item>
 							</el-dropdown-menu>
 						</template>
@@ -21,18 +20,15 @@
 					<div class="sortby d-flex justify-content-between align-items-center">
 						<p class="sortby__title">Sort by: </p>
 						<button @click="setOrderIndex(index); refresh() " class="sortby__button btn btn-transparent"
-							:class="{'sortby__button-selected': index == orderIndex}" v-for="(order, index) in orders"
-							:key="index">{{order.label}}</button>
+							:class="{'sortby__button-selected': index == orderIndex}" v-for="(order, index) in orders" :key="index">{{order.label}}</button>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="container">
 			<div class="row">
-				<div class="d-flex justify-content-between flex-wrap flat-grid-wrapper" v-if="!loading">
-					<div v-for="(flat, index) in flats" :key="index">
-						<FlatCardComponent :flat="flat"></FlatCardComponent>
-					</div>
+				<div class="flat-grid-wrapper">
+					<FlatCardComponent :flat="flat" v-for="(flat, index) in flats" :key="index"></FlatCardComponent>
 				</div>
 				<div class="d-flex justify-content-center" v-if="loading">
 					<LoadingSpinnerComponent></LoadingSpinnerComponent>
@@ -79,9 +75,9 @@ export default {
 		}
 	},
 	components: {
-    FlatCardComponent,
-    LoadingSpinnerComponent
-},
+		FlatCardComponent,
+		LoadingSpinnerComponent
+	},
 	created() {
 		this.loadMore()
 	}
@@ -145,9 +141,17 @@ span.el-dropdown-link {
 	display: flex;
 }
 
+.flat-grid-wrapper {
+	margin-top: 30px;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+	grid-gap: 40px;
+}
+
 @media (max-width: 991px) {
 	.flat-grid-wrapper {
 		flex-direction: column;
+
 		.flat-card {
 			width: 100%;
 		}
